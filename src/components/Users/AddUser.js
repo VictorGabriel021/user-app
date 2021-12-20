@@ -3,7 +3,7 @@ import Button from "../UI/Button";
 import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 
-const AddUser = () => {
+const AddUser = (props) => {
   const [userName, setUsername] = useState("");
   const [userAge, setUserAge] = useState("");
 
@@ -18,17 +18,19 @@ const AddUser = () => {
   const addUserHandler = (event) => {
     event.preventDefault();
     const userData = {
-      name: userName,
+      id: Math.random(0 * 100).toString(),
+      username: userName,
       age: userAge,
     };
     if (!formValidation(userData)) {
+      props.onAddUser(userData);
       setUsername("");
       setUserAge("");
     }
   };
 
   const formValidation = (userData) => {
-    return userData.name.trim().length === 0 || +userData.age <= 0;
+    return userData.username.trim().length === 0 || +userData.age <= 0;
   };
 
   return (
